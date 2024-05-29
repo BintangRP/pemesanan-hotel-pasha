@@ -1,66 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pemesanan Hotel
+## Project Overview
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Proyek ini dibangun menggunakan framework Laravel, yang adalah sebuah framework aplikasi web berbasis PHP yang dikenal karena sintaksnya yang elegan dan fitur-fitur yang solid. Proyek ini menawarkan sistem yang komprehensif untuk booking kamar hotel, termasuk fungsi booking, halaman landing, tentang web, dan grafik popularitas real-time sesuai dengan customer yang sudah membooking kamar.
 
-## About Laravel
+## Folder Structure
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The folder structure of this Laravel project is as follows:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```
+├── app
+│   ├── Console
+│   ├── Exceptions
+│   ├── Http
+│   │   ├── Controllers
+│   │   ├── Middleware
+│   ├── Models
+│   ├── Providers
+├── bootstrap
+├── config
+├── database
+│   ├── factories
+│   ├── migrations
+│   ├── seeders
+├── public
+├── resources
+│   ├── js
+│   ├── sass
+│   ├── views
+├── routes
+├── storage
+│   ├── app
+│   ├── framework
+│   ├── logs
+├── tests
+├── vendor
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Folder Descriptions
 
-## Learning Laravel
+- **app/**: Berisi kode inti aplikasi, termasuk controller, model, dan middleware.
+  - **Console/**: Berisi perintah custom artisan.
+  - **Exceptions/**: Berisi handler dan custom exception.
+  - **Http/**: Berisi controllers, middleware, dan request form.
+    - **Controllers/**: Berisi penerapan kontroller HTTP untuk menangani request yang datang 
+    - **Middleware/**: Berisi middleware untuk menyaring permintaan HTTP yang masuk ke aplikasi.
+  - **Models/**: Berisi model-model Eloquent, yang mewakili tabel-tabel database.
+  - **Providers/**: Berisi penyedia layanan aplikasi.
+  
+- **bootstrap/**: Berisi file `app.php` memuat file yang memperkenalkan framework dan mengkonfigurasi autoloading. Direktori ini juga berisi direktori cache yang berisi file-file yang dihasilkan framework untuk optimasi performansi seperti file cache rute dan layanan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **config/**: Berisi semua file konfigurasi untuk aplikasi.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **database/**: Berisi file-file yang terkait dengan database.
+  - **factories/**: Berisi file factory model untuk menghasilkan data uji.
+  - **migrations/**: Berisi file migrasi database.
+  - **seeders/**: Berisi file seeder database untuk mengisi database dengan data contoh.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **public/**: Dokumen root server web. Berisi aset seperti gambar, JavaScript, dan CSS.
 
-## Laravel Sponsors
+- **resources/**: Berisi template view dan aset mentah seperti CSS dan JavaScript.
+  - **js/**: Berisi file JavaScript.
+  - **sass/**: Berisi file SASS/SCSS untuk gaya.
+  - **views/**: Berisi template Blade untuk view.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **routes/**: Berisi definisi semua rute.
+  - **web.php**: Berisi rute untuk antarmuka web.
+  - **api.php**: Berisi rute untuk endpoint API.
 
-### Premium Partners
+- **storage/**: Berisi template Blade yang dikompilasi, sesi berbasis file, cache berbasis file, dan file lain yang dihasilkan oleh aplikasi.
+  - **app/**: Berisi file aplikasi.
+  - **framework/**: Berisi file yang dihasilkan oleh framework dan cache.
+  - **logs/**: Berisi file log aplikasi.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **tests/**: Berisi tes otomatis.
 
-## Contributing
+- **vendor/**: Berisi dependensi Composer.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Programming Resources
 
-## Code of Conduct
+### Laravel Framework
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Eloquent ORM**: Laravel memiliki ORM built-in yang memudahkan penggunaan ActiveRecord untuk bekerja dengan database. Setiap tabel database memiliki model yang sesuai yang digunakan untuk berinteraksi dengan tabel tersebut.
 
-## Security Vulnerabilities
+- **Routing**: Fungsi routing Laravel sangat mudah dan fleksibel. Rute didefinisikan dalam file routes/web.php dan routes/api.php.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Blade Templating**: Blade adalah engine templating yang kuat dari Laravel. Ini memberikan shortcut yang nyaman untuk operasi PHP yang umum dan membantu menjaga view Anda bersih dan baca.
 
+- **Middleware**: Middleware memberikan mekanisme yang nyaman untuk mengfilter permintaan HTTP yang masuk ke aplikasi Anda.
+
+- **Artisan Console**: Laravel memiliki antarmuka command-line yang disebut Artisan, yang memberikan beberapa perintah yang berguna untuk digunakan saat mengembangkan aplikasi Anda.
+
+- **Service Providers**: Service providers adalah tempat sentral dari semua bootstrapping aplikasi Laravel. Aplikasi Anda sendiri, serta semua layanan inti Laravel, dibootstrapping melalui service providers.
+
+### Key Concepts
+
+- **MVC Architecture**: Laravel mengikuti pola desain Model-View-Controller (MVC), memastikan pemisahan jelas antara lapisan logika, presentasi, dan data.
+
+- **Service Container**: Kontainer layanan Laravel adalah alat yang kuat untuk mengelola ketergantungan kelas dan melakukan injeksi dependensi.
+
+- **Event Broadcasting**: Laravel membuatnya mudah untuk menyiarakan acara-acara melalui koneksi WebSocket, memungkinkan pembaruan waktu nyata pada aplikasi Anda.
+
+## Getting Started
+
+To get started with this Laravel project, you need to have the following prerequisites:
+
+- PHP >= 7.3
+- Composer
+- Node.js & npm
+
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-repository.git
+    cd your-repository
+    ```
+
+2. Install dependencies:
+    ```bash
+    composer install
+    npm install
+    ```
+
+3. Copy the `.env.example` file to `.env` and configure your environment settings:
+    ```bash
+    cp .env.example .env
+    ```
+
+4. Generate the application key:
+    ```bash
+    php artisan key:generate
+    ```
+
+5. Run database migrations and seeders:
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6. Start the development server:
+    ```bash
+    php artisan serve
+    ```
+    
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
