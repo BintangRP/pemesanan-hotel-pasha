@@ -119,7 +119,6 @@ To get started with this Laravel project, you need to have the following prerequ
 2. Install dependencies:
     ```bash
     composer install
-    npm install
     ```
 
 3. Copy the `.env.example` file to `.env` and configure your environment settings:
