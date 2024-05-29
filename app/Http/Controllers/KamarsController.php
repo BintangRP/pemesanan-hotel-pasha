@@ -63,7 +63,7 @@ class KamarsController extends Controller
             if (!$client) return response()->json(['msg' => "Data tidak ditemukan"]);
 
             return response()->json([
-                'Nama pemesan' => $client->nama_pesanan,
+                'Nama pemesan' => $client->nama_pemesanan,
                 'Nomor identitas' => $client->no_ktp,
                 'Jenis Kelamin' => $client->jk,
                 'Tipe kamar' => $client->tipe_kamar,
@@ -82,7 +82,7 @@ class KamarsController extends Controller
     public function kamar($id)
     {
         try {
-            $item = PesanKamar::find($id);
+            $item = Kamar::find($id);
 
             if (!$item) return response()->json(['msg' => "Kamar tidak ditemukan"]);
 

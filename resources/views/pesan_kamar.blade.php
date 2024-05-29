@@ -82,11 +82,14 @@
             </div>
             <div class="form-group">
                 <label for="jk">Jenis Kelamin</label>
-                <select id="jk" name="jk" class="form-control" required>
-                    <option value="">Select</option>
-                    <option value="lk">Laki-laki</option>
-                    <option value="pr">Perempuan</option>
-                </select>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jk" id="jk_lk" value="lk" required>
+                    <label class="form-check-label" for="jk_lk">Laki-laki</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jk" id="jk_pr" value="pr" required>
+                    <label class="form-check-label" for="jk_pr">Perempuan</label>
+                </div>
             </div>
             <div class="form-group">
                 <label for="no_ktp">Nomor KTP</label>
@@ -132,7 +135,8 @@
             <a href="#hitungTotal" id="calculateTotal" onclick="return false;"
                 class="btn btn-lg btn-warning btn-block fw-bold mx-auto px-10">Hitung Total Bayar</a>
             <button type="submit" class="btn btn-lg btn-primary btn-block fw-bold mx-auto px-10">Pesan</button>
-            <a href="{{ route('pesan_form') }}" class="btn btn-lg btn-secondary btn-block fw-bold mx-auto px-10">cancel</a>
+            <a href="{{ route('pesan_form') }}"
+                class="btn btn-lg btn-secondary btn-block fw-bold mx-auto px-10">cancel</a>
         </form>
     </div>
 
