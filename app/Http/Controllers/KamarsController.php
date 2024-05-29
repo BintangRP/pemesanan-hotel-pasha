@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kamar;
 use App\Models\PesanKamar;
 use Carbon\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
 class KamarsController extends Controller
@@ -50,7 +51,7 @@ class KamarsController extends Controller
         }
 
         // Kirim hasil perhitungan ke tampilan menggunakan compact
-        return view('hasilBeasiswa', compact('data', 'jumlahPemesanStandar', 'jumlahPemesanDeluxe', 'jumlahPemesanFamily'));
+        return view('pricelist', compact('data', 'jumlahPemesanStandar', 'jumlahPemesanDeluxe', 'jumlahPemesanFamily'));
     }
 
     //Fungsi untuk mengecek pesanan melalui id yang tersedia di database
@@ -72,6 +73,7 @@ class KamarsController extends Controller
                 'Total bayar' => $client->total_bayar
             ]);
         } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -96,56 +98,46 @@ class KamarsController extends Controller
     //fungsi untuk memasukkan data yang sudah disubmit di form
     public function create_pesan(Request $request)
     {
-        function TotalBayar($durasi, $harga, $breakfast)
-        {
-            try {
-                $total = $durasi * $harga;
-                if ($durasi > 3) {
-                    $total *= 0.9; // Apply 10% discount
-                }
-                if ($breakfast == 1) {
-                    $total += 80000; // Add breakfast cost
-                }
-                return $total;
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', $e->getMessage());
-            }
-        }
-
         try {
             // validasi request
-            try {
-                $request->validate([
-                    'nama_pesanan' => 'required',
-                    'jk' => 'required',
-                    'no_ktp' => 'required|size:16|numeric',
-                    'tipe_kamar' => 'required',
-                    'harga' => 'required',
-                    'tgl_pesan' => 'required|date|regex:/\d{1,2}\/\d{1,2}\/\d{4}/',
-                    'durasi' => 'required',
-                    'breakfast' => 'required',
-                    'total_bayar' => 'required',
-                ]);
+            $request->validate([
+                'nama_pesanan' => 'required',
+                'jk' => 'required',
+                'no_ktp' => 'required|numeric|digits:16',
+                'tipe_kamar' => 'required',
+                'harga' => 'required',
+                'tgl_pesan' => 'required|date',
+                'durasi' => 'required',
+                'total_bayar' => 'required',
+            ]);
 
-                $client = new PesanKamar();
-                $client->nama_pesanan = $request->nama_pesanan;
-                $client->jk = $request->jk;
-                $client->no_ktp = $request->no_ktp;
-                $client->tipe_kamar = $request->tipe_kamar;
-                $client->tgl_pesan = $request->tgl_pesan;
-                $client->durasi = $request->durasi;
-                $client->breakfast = $request->breakfast;
-                $durasi = $client->durasi;
-                $breakfast = $client->breakfast;
-                $subTotal = TotalBayar($durasi, $request->harga, $breakfast);
-                $client->total_bayar = $subTotal;
-                $client->save();
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', $e->getMessage());
+            $client = new PesanKamar();
+            $client->nama_pemesanan = $request->nama_pesanan;
+            $client->jk = $request->jk;
+            $client->no_ktp = $request->no_ktp;
+            $client->tipe_kamar = $request->tipe_kamar;
+            $client->tgl_pesan = $request->tgl_pesan;
+            $client->durasi = $request->durasi;
+
+            $client->breakfast = $request->breakfast ?? 0;
+            $client->total_bayar = $request->total_bayar;
+
+            // getting kamar id to foreign key client->kamar_id
+            $tipeKamar = $client->tipe_kamar;
+            $kamar = Kamar::where('nama', $tipeKamar)->first();
+            if ($kamar) {
+                $client->kamar_id = $kamar->id;
+            } else {
+                Alert::error('error', "Kamar with nama '{$tipeKamar}' not found.");
+                throw new \Exception("Kamar with nama '{$tipeKamar}' not found.");
             }
+            $client->save();
 
-            return redirect()->route('pesan')->with('success', 'Berhasil!');
+            Alert::success('Success', 'Berhasil Booking Kamar');
+
+            return redirect()->route('pesan_form')->with('success', 'Berhasil!');
         } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

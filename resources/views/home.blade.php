@@ -1,3 +1,10 @@
-<div>
-    <!-- If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius -->
-</div>
+@extends('layouts.index')
+
+@section('title', 'Welcome to Hotel Pasha')
+
+@section('content')
+    <x-landingpage_hero></x-landingpage_hero>
+    <x-landingpage_services></x-landingpage_services>
+    <x-landingpage_whyus></x-landingpage_whyus>
+    <script src="{{ asset('js/swiper.js') }}"></script>
+@endsection
