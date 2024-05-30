@@ -7,9 +7,13 @@
     </a>
 
     <ul class="nav nav-pills">
-        <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="/pricelist" class="nav-link">Pricelist</a></li>
-        <li class="nav-item"><a href="/pesan" class="nav-link">Booking Kamar</a></li>
-        <li class="nav-item"><a href="/about" class="nav-link">Tentang Kami</a></li>
+        <li class="nav-item"><a href="/" class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="/pricelist"
+                class="nav-link {{ request()->is('pricelist') ? 'active' : '' }}">Pricelist</a></li>
+        <li class="nav-item"><a href="/pesan" class="nav-link {{ request()->is('pesan') ? 'active' : '' }}">Booking
+                Kamar</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link {{ request()->is('about') ? 'active' : '' }}">Tentang
+                Kami</a></li>
     </ul>
 </header>
