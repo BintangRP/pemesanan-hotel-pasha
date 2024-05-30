@@ -109,12 +109,13 @@
             </div>
             <div class="form-group">
                 <label for="harga">Harga</label>
-                <input type="number" id="harga" name="harga" class="form-control" required readonly>
+                <input type="text" id="harga" name="harga" class="form-control" required readonly>
             </div>
             <div class="form-group">
+
                 <label for="tgl_pesan">Tanggal Pesan</label>
-                <input type="date" id="tgl_pesan" name="tgl_pesan" class="form-control" required
-                    pattern="\d{1,2}/\d{1,2}/\d{4}" title="Format tanggal harus dd/mm/yyyy">
+                <input type="date" placeholder="dd-mm-yyyy" format="mm-dd-yyyy" id="tgl_pesan" name="tgl_pesan"
+                    class="form-control" required min=”01-01-1920″, max=”01-12-2120″>
                 <small class="note">Format: dd/mm/yyyy</small>
             </div>
             <div class="form-group">
@@ -130,7 +131,7 @@
             </div>
             <div class="form-group">
                 <label for="total_bayar">Total Bayar</label>
-                <input type="number" id="total_bayar" name="total_bayar" class="form-control" required readonly>
+                <input type="text" id="total_bayar" name="total_bayar" class="form-control" required readonly>
             </div>
             <a href="#hitungTotal" id="calculateTotal" onclick="return false;"
                 class="btn btn-lg btn-warning btn-block fw-bold mx-auto px-10">Hitung Total Bayar</a>
@@ -141,6 +142,7 @@
     </div>
 
     <script>
+        // deklarasi variable
         const tipeKamarSelect = document.getElementById('tipe_kamar');
         const hargaInput = document.getElementById('harga');
         const durasiInput = document.getElementById('durasi');
@@ -148,32 +150,47 @@
         const totalBayarInput = document.getElementById('total_bayar');
         const calculateButton = document.getElementById('calculateTotal');
 
+        // harga tipe kamar
         const roomPrices = {
             'standar': 100000,
             'deluxe': 500000,
             'family': 1000000
         };
 
+        // fungsi format currency
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(value);
+        }
+
+        // fungsi hitung total
         function calculateTotal() {
-            let harga = parseInt(hargaInput.value) || 0;
+            let harga = parseInt(hargaInput.value.replace(/[^0-9]/g, '')) || 0;
             let durasi = parseInt(durasiInput.value) || 0;
             let breakfast = breakfastCheckbox.checked ? 80000 : 0;
             let total = harga * durasi;
 
             if (durasi >= 3) {
-                total *= 0.1;
+                total *= 0.9;
             }
 
-            total += breakfast * durasi;
-            totalBayarInput.value = total;
+            if (breakfast) {
+                total += breakfast * durasi;
+            }
+
+            totalBayarInput.value = formatCurrency(total);
         }
 
+        // fungsi select tipe kamar
         tipeKamarSelect.addEventListener('change', function() {
             let selectedRoomType = tipeKamarSelect.value;
             if (roomPrices[selectedRoomType]) {
-                hargaInput.value = roomPrices[selectedRoomType];
+                hargaInput.value = formatCurrency(roomPrices[selectedRoomType]);
             } else {
-                hargaInput.value = 0;
+                hargaInput.value = formatCurrency(0);
             }
         });
 

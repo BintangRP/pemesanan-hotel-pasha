@@ -2,7 +2,7 @@
 <div class="container-lg">
     <div class="d-flex justify-content-center align-items-center mx-auto">
         <div>
-            <h1 class="fw-bold">Welcome to my project Web</h1>
+            <h1 class="fw-bold">Welcome to Hotel Pasha</h1>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium reiciendis atque quasi aliquid quos
                 praesentium, fugiat quam error distinctio iure sapiente accusantium ad ipsum inventore debitis assumenda
                 tempora dolorum. Soluta corrupti omnis laudantium voluptatibus, fuga id est aperiam quam nulla minima

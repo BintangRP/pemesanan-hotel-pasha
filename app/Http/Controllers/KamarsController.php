@@ -33,7 +33,8 @@ class KamarsController extends Controller
     {
         $data = PesanKamar::orderBy('id', 'DESC')->get();
 
-        if (!$data) return redirect()->back()->with('error', 'Data tidak ditemukan');
+        if (!$data)
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
 
         $jumlahPemesanStandar = 0;
         $jumlahPemesanDeluxe = 0;
@@ -60,16 +61,17 @@ class KamarsController extends Controller
         try {
             $client = PesanKamar::find($id);
 
-            if (!$client) return response()->json(['msg' => "Data tidak ditemukan"]);
+            if (!$client)
+                return response()->json(['msg' => "Data tidak ditemukan"]);
 
             return response()->json([
                 'Nama pemesan' => $client->nama_pemesanan,
                 'Nomor identitas' => $client->no_ktp,
-                'Jenis Kelamin' => $client->jk,
+                'Jenis Kelamin' => $client->jk == 'pr' ? "Perempuan" : "Laki-laki",
                 'Tipe kamar' => $client->tipe_kamar,
-                'Durasi Penginapan' => $client->durasi,
-                'Breakfast' => $client->breakfast ? "Pakai" : "Tidak pakai",
-                'Discount' => $client->durasi >= 3 ? "10%" : "0%",
+                'Durasi Penginapan' => ($client->durasi . ' Hari'),
+                'Breakfast' => $client->breakfast ? "Pakai" : "-",
+                'Discount' => $client->durasi >= 3 ? "10%" : "-",
                 'Total bayar' => $client->total_bayar
             ]);
         } catch (\Exception $e) {
@@ -84,7 +86,8 @@ class KamarsController extends Controller
         try {
             $item = Kamar::find($id);
 
-            if (!$item) return response()->json(['msg' => "Kamar tidak ditemukan"]);
+            if (!$item)
+                return response()->json(['msg' => "Kamar tidak ditemukan"]);
 
             return response()->json([
                 'Tipe kamar' => $item->nama,

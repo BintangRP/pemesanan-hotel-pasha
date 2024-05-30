@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,7 +19,7 @@ return new class extends Migration
             $table->date('tgl_pesan');
             $table->integer('durasi');
             $table->integer('breakfast')->enum(0, 1);
-            $table->integer('total_bayar');
+            $table->string('total_bayar');
             $table->unsignedBigInteger('kamar_id');
             $table->foreign('kamar_id')->references('id')->on('kamars');
             $table->timestamps();
